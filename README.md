@@ -3,14 +3,19 @@
 A status page for Adam Stegman.
 Compiled from ERB templates and hosted on Github Pages.
 
-## Deployment
+## Testing
 
     bundle install
     bundle exec rake build
-    open dist/index.html
-    bundle exec rake deploy
+    ( cd _site; python3 -m http.server 8000 & )
+    open http://localhost:8000
 
-## Development
+## Deployment
+
+    bundle install
+    bundle exec rake 'site:publish["adamstegman/status"]' CNAME=status.adamstegman.com
+
+## Development of the builder
 
     bundle install
     bundle exec rspec
