@@ -46,14 +46,14 @@ class Build
     return if full_pathname.directory?
 
     logger.info("Building '#{source_relative/input_pathname}'...")
-    source_file = FileType.for_pathname(input_pathname).new(
+    view_template = ViewTemplate.for_pathname(input_pathname).new(
       input_pathname: input_pathname,
       contents: full_pathname.read,
       compile_binding: compile_binding,
     )
-    output_pathname = source_file.output_pathname
+    output_pathname = view_template.output_pathname
     logger.debug { "[#{self.class.name}#build_pathname] [input_pathname=#{input_pathname.inspect}] output_pathname=#{output_pathname.inspect}" }
-    contents = source_file.compiled_contents
+    contents = view_template.render
     logger.debug { "[#{self.class.name}#build_pathname] [input_pathname=#{input_pathname.inspect}] contents=#{contents.inspect}" }
     destination_pathname = destination/output_pathname
     FileUtils.mkdir_p(destination_pathname.dirname)
@@ -114,4 +114,4 @@ class Build
   end
 end
 
-require_relative "./build/file_type"
+require_relative "./build/view_template"

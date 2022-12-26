@@ -1,12 +1,7 @@
 # Builds content into the compiled site.
 # Also includes a factory to find the right subclass based on file extension.
-class Build::FileType
+class Build::ViewTemplate
   class << self
-    # Returns supported file extensions.
-    def file_extensions
-      file_types.keys
-    end
-
     # Returns the class responsible for building the given Pathname, based on its extension.
     # Default option is to copy content exactly.
     def for_pathname(pathname)
@@ -19,7 +14,7 @@ class Build::FileType
     # Returns this class by default so the file is just copied.
     def file_types
       @file_types ||= Hash.new(self).merge(
-        ".erb" => ERBFile,
+        ".erb" => ERBTemplate,
       ).freeze
     end
   end
@@ -31,7 +26,7 @@ class Build::FileType
   end
 
   # Subclasses should override to compile the contents into the output HTML.
-  def compiled_contents
+  def render
     contents
   end
 
@@ -45,4 +40,4 @@ class Build::FileType
   attr_reader :input_pathname, :contents, :compile_binding
 end
 
-require_relative "./erb_file"
+require_relative "./erb_template"

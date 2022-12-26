@@ -1,8 +1,8 @@
 require "erb"
 
 # The results of compiling an ERB file.
-class Build::FileType::ERBFile < Build::FileType
-  def compiled_contents
+class Build::ViewTemplate::ERBTemplate < Build::ViewTemplate
+  def render
     ERB.new(contents, trim_mode: "-").result(compile_binding)
   end
 

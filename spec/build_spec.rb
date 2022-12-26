@@ -113,15 +113,15 @@ RSpec.describe Build do
     before do
       allow(build).to receive(:abort)
 
-      mock_build = instance_double("Build::FileType")
-      mock_build_type = class_double("Build::FileType", new: mock_build)
-      allow(Build::FileType).to receive(:for_pathname).and_return(mock_build_type)
+      mock_build = instance_double("Build::ViewTemplate")
+      mock_build_type = class_double("Build::ViewTemplate", new: mock_build)
+      allow(Build::ViewTemplate).to receive(:for_pathname).and_return(mock_build_type)
       tries = 0
       allow(mock_build).to receive(:output_pathname) {
         tries += 1
         Pathname.new("#{tries}.html")
       }
-      allow(mock_build).to receive(:compiled_contents) {
+      allow(mock_build).to receive(:render) {
         raise "Compile error" if tries == 1
         "compiled contents"
       }
