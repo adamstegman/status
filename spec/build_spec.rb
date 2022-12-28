@@ -70,15 +70,16 @@ RSpec.describe Build do
     expect(File).to have_received(:write).with("#{absolute_path}/destdir/manifest.webmanifest", "{}")
   end
 
-  context "when extra HTML files are in the destination" do
-    it "removes leftover HTML files from the destination", :aggregate_failures do
+  context "when extra files are in the destination" do
+    it "removes leftover files from the destination", :aggregate_failures do
+      directories = [instance_double("Pathname", directory?: true)]
       pathnames = [
-        instance_double("Pathname", unlink: nil),
-        instance_double("Pathname", unlink: nil),
+        instance_double("Pathname", directory?: false, unlink: nil),
+        instance_double("Pathname", directory?: false, unlink: nil),
       ]
       allow(Pathname).to receive(:glob).with(
-        Pathname.new("#{absolute_path}/destdir/**/*.html"),
-      ).and_return(pathnames)
+        Pathname.new("#{absolute_path}/destdir/**/*"),
+      ).and_return(directories + pathnames)
       build.build
       pathnames.each do |pathname|
         expect(pathname).to have_received(:unlink)
@@ -99,13 +100,6 @@ RSpec.describe Build do
     it "creates a CNAME file" do
       build.build
       expect(File).to have_received(:write).with("#{absolute_path}/destdir/CNAME", "cname.example.com")
-    end
-  end
-
-  context "when no CNAME is defined" do
-    it "removes leftover CNAME from the destination" do
-      build.build
-      expect(FileUtils).to have_received(:rm_f).with(Pathname.new("#{absolute_path}/destdir/CNAME"))
     end
   end
 

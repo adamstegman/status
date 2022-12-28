@@ -67,11 +67,10 @@ class Build
   def clean_destination
     logger.info("Cleaning '#{destination_relative}'...")
     FileUtils.mkdir_p destination
-    FileUtils.rm_f(cname_pathname)
     logger.debug { "[#{self.class.name}#clean_destination] [destination=#{destination.inspect}] contents=#{Dir.glob("#{destination}/**/*").inspect}" }
-    Pathname.glob(destination/"**"/"*.html").each { |pathname|
+    Pathname.glob(destination/"**"/"*").each { |pathname|
       logger.debug { "[#{self.class.name}#clean_destination] [destination=#{destination.inspect}] [deleting] #{pathname.inspect}" }
-      pathname.unlink
+      pathname.unlink unless pathname.directory?
     }
     logger.info("Cleaned '#{destination_relative}'!")
   end
