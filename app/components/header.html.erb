@@ -1,0 +1,85 @@
+<header class="header splash">
+  <%= atom.render %>
+  <div class="container">
+    <hgroup>
+      <h1 class="splash-text">
+        <a aria-current="page" class="header-link splash-text" href="/">Adam Stegman</a>
+      </h1>
+      <h2 class="splash-text">Remote Staff Software Engineer</h2>
+    </hgroup>
+    <nav aria-label="primary">
+      <button aria-expanded="false" aria-controls="nav-list" class="button splash-border" hidden>
+        <h3 class="button-text splash-text">
+          <span data-expanded="false">Show</span>
+          <span data-expanded="true" hidden>Hide</span>
+          Navigation
+        </h3>
+      </button>
+      <ul class="nav-list">
+        <li class="nav-item">
+          <button class="index-module--item-button--v6WU7 button-text">
+            <a aria-current="page" class="nav-link splash-link splash-text" href="//adamstegman.com">About Me</a>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="index-module--item-button--v6WU7 button-text">
+            <a href="//blog.adamstegman.com" class="nav-link splash-link splash-text">My Kind of Stupid (Blog)</a>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="index-module--item-button--v6WU7 button-text">
+            <a href="//twitter.com/adamstegman" class="nav-link splash-link splash-text">Twitter</a>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="index-module--item-button--v6WU7 button-text">
+            <a href="//github.com/adamstegman" class="nav-link splash-link splash-text">Github</a>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<script>
+  function PrimaryNav(navElement) {
+    this.expanded = false;
+    this.menuHiddenClassName = 'menu-hidden';
+    this.toggleElement = navElement.querySelector('button[aria-expanded]');
+    this.navListElement = navElement.querySelector('ul.nav-list');
+    this.collapsedText = navElement.querySelector('[data-expanded=false]');
+    this.expandedText = navElement.querySelector('[data-expanded=true]');
+
+    this.initialize = function() {
+      this.collapse();
+      this.toggleElement.addEventListener('click', this.toggle.bind(this));
+      this.toggleElement.hidden = false;
+    }
+
+    this.toggle = function() {
+      if (!this.expanded) {
+        this.expand();
+      } else {
+        this.collapse();
+      }
+    }
+
+    this.expand = function() {
+      this.expanded = true;
+      this.navListElement.classList.remove(this.menuHiddenClassName);
+      this.toggleElement.ariaExpanded = true;
+      this.collapsedText.hidden = true;
+      this.expandedText.hidden = false;
+    }
+
+    this.collapse = function() {
+      this.expanded = false;
+      this.navListElement.classList.add(this.menuHiddenClassName);
+      this.toggleElement.ariaExpanded = false;
+      this.expandedText.hidden = true;
+      this.collapsedText.hidden = false;
+    }
+  }
+  const navElement = document.querySelector('nav[aria-label=primary]');
+  const primaryNav = new PrimaryNav(navElement);
+  primaryNav.initialize();
+</script>
