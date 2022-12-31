@@ -166,6 +166,7 @@ footer h2 {
 }
 .card-text h3 {
   font-family: 'Lora', serif;
+  margin-top: 0.5rem;
 }
 .tag {
   align-self: flex-end;
@@ -173,4 +174,7 @@ footer h2 {
   border-radius: 0.25rem;
   margin: 2rem 0 0;
   padding: 0.5rem;
+}
+.date-tag {
+  margin-top: 0;
 }
