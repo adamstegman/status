@@ -17,22 +17,40 @@
       </button>
       <ul class="nav-list">
         <li class="nav-item">
-          <button class="index-module--item-button--v6WU7 button-text">
-            <a aria-current="page" class="nav-link splash-link splash-text" href="//adamstegman.com">About Me</a>
+          <button class="button-text">
+            <a
+             href="/"
+             class="nav-link splash-link splash-text"
+             <%= %(aria-current="page") if @current_page == :index %>
+            >Current Status</a>
           </button>
         </li>
         <li class="nav-item">
-          <button class="index-module--item-button--v6WU7 button-text">
+          <button class="button-text">
+            <a
+             href="/history.html"
+             class="nav-link splash-link splash-text"
+             <%= %(aria-current="page") if @current_page == :history %>
+            >Status History</a>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="button-text">
+            <a href="//adamstegman.com" class="nav-link splash-link splash-text">About Me</a>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="button-text">
             <a href="//blog.adamstegman.com" class="nav-link splash-link splash-text">My Kind of Stupid (Blog)</a>
           </button>
         </li>
         <li class="nav-item">
-          <button class="index-module--item-button--v6WU7 button-text">
+          <button class="button-text">
             <a href="//twitter.com/adamstegman" class="nav-link splash-link splash-text">Twitter</a>
           </button>
         </li>
         <li class="nav-item">
-          <button class="index-module--item-button--v6WU7 button-text">
+          <button class="button-text">
             <a href="//github.com/adamstegman" class="nav-link splash-link splash-text">Github</a>
           </button>
         </li>
