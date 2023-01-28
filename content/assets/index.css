@@ -176,5 +176,6 @@ footer h2 {
   padding: 0.5rem;
 }
 .date-tag {
+  align-self: flex-end;
   margin-top: 0;
 }
